@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.location.Location
 import android.os.Bundle
-
+import androidx.core.content.ContextCompat
 import org.json.JSONObject
 import androidx.appcompat.app.AppCompatActivity
 import com.eopeter.fluttermapboxnavigation.FlutterMapboxNavigationPlugin
@@ -84,7 +84,7 @@ class NavigationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.Theme_AppCompat_NoActionBar)
+        setTheme(R.style.AppTheme)
         binding = NavigationActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.navigationView.addListener(navigationStateListener)
@@ -148,12 +148,14 @@ class NavigationActivity : AppCompatActivity() {
 
         registerReceiver(
             finishBroadcastReceiver,
-            IntentFilter(NavigationLauncher.KEY_STOP_NAVIGATION)
+            IntentFilter(NavigationLauncher.KEY_STOP_NAVIGATION),
+            ContextCompat.RECEIVER_NOT_EXPORTED
         )
 
         registerReceiver(
             addWayPointsBroadcastReceiver,
-            IntentFilter(NavigationLauncher.KEY_ADD_WAYPOINTS)
+            IntentFilter(NavigationLauncher.KEY_ADD_WAYPOINTS),
+            ContextCompat.RECEIVER_NOT_EXPORTED
         )
 
         // TODO set the style Uri
